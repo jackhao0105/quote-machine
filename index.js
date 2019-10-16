@@ -7,12 +7,12 @@
   Developer      : Jack Hao
 */
 
-
+// Declare Variables
 var quotesData = '';
 let textCurrent ='', authorCurrent = '';
 var colors = ['#16a085', '#27ae60', '#2c3e50', '#f39c12', '#e74c3c', '#9b59b6', '#FB6964', '#342224', "#472E32", "#BDBB99", "#77B1A9", "#73A857"]
 
-// Get Source
+// Get Source By Fecth
 var url = 'https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json';
     fetch(url)
         .then((res) => res.json())
@@ -21,22 +21,24 @@ var url = 'https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6
           quotesData = items ;     
         })
 
+// Create Method that help run the Machine
 function getRandomQuote() {
   return quotesData.quotes[Math.floor(Math.random() * quotesData.quotes.length)];
 }
 
-function getQuote(){
+function getQuote(){    
+  // assign getRandomQuote function into randomNumber variable
   let randomNumber = getRandomQuote();
-  console.log(randomNumber);
   
-  // assing the random number with quote current
-  textCurrent = randomNumber.quote;    
+  // assing the randomNumber with quote current --- quote and author
+  quoteCurrent = randomNumber.quote;    
   authorCurrent  = randomNumber.author;
 
   // display
-  display(textCurrent, authorCurrent);
+  display(quoteCurrent, authorCurrent);
   
-  //change background color
+  // change background color
+  // color is the random number by random method
   var color = Math.floor(Math.random() * colors.length)
   document.querySelector('body').style.backgroundColor         = colors[color];
   document.querySelector('body').style.color                   = colors[color];
@@ -56,6 +58,7 @@ function display(main,sub){
   text.innerHTML = main;
   author.innerHTML = sub;
 
+  // share on twitter with the link 
   const tweetButton = document.getElementById('tweet-quote');
   tweetButton.setAttribute('href', `https://twitter.com/intent/tweet?hashtags=quotes&related=freecodecamp&text=${main} - ${sub}`);
 }
